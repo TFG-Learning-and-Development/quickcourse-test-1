@@ -1,0 +1,42 @@
+---
+import { course } from "../config/course";
+import CourseLayout from "../layouts/CourseLayout.astro";
+---
+
+<CourseLayout>
+  <section class="course-placeholder" aria-labelledby="course-title">
+    <h1 id="course-title">{course.title}</h1>
+    <p>{course.description}</p>
+    <p class="course-placeholder__note">Course content will be generated here after storyboard mapping and human review.</p>
+  </section>
+</CourseLayout>
+
+<style>
+  .course-placeholder {
+    border-block: 1px solid #d8d4da;
+    max-inline-size: 46rem;
+    min-inline-size: 0;
+    padding-block: clamp(2.5rem, 8vw, 5rem);
+  }
+
+  h1 {
+    color: #1f1a22;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.1;
+    margin: 0;
+  }
+
+  p {
+    color: #4f4854;
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin: 1rem 0 0;
+    max-inline-size: 42rem;
+    overflow-wrap: anywhere;
+  }
+
+  .course-placeholder__note {
+    color: #716a75;
+    font-size: 1rem;
+  }
+</style>

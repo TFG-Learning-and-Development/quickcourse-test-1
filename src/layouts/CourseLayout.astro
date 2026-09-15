@@ -1,0 +1,64 @@
+---
+import "@quick-course-kit/local-release/styles/quick-course.css";
+import { course } from "../config/course";
+import { kitManifest } from "../config/kit";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = course.title,
+  description = course.description,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={course.language}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="quick-course-kit-version" content={kitManifest.kitVersion} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#course-content">Skip to course content</a>
+    <main id="course-content" class="course-shell" tabindex="-1">
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  .skip-link {
+    background: var(--qc-color-primary, #6c2c84);
+    color: #fff;
+    inset-block-start: 1rem;
+    inset-inline-start: 1rem;
+    padding: 0.75rem 1rem;
+    position: fixed;
+    transform: translateY(-200%);
+    z-index: 10;
+  }
+
+  .skip-link:focus-visible {
+    outline: 3px solid #1f1a22;
+    outline-offset: 3px;
+    transform: translateY(0);
+  }
+
+  .course-shell {
+    box-sizing: border-box;
+    inline-size: 100%;
+    max-inline-size: 72rem;
+    margin-inline: auto;
+    padding-block: clamp(2rem, 6vw, 4rem);
+    padding-inline: 1rem;
+  }
+
+  .course-shell:focus {
+    outline: none;
+  }
+</style>
