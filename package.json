@@ -13,8 +13,7 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@quick-course-kit/local-release": "file:../astro-quickcourse-spec/generated/releases/0.1.0",
-    "@tailwindcss/vite": "4.2.2",
+"@quick-course-kit/local-release": "github:TFG-Learning-and-Development/astro-quickcourse-spec#v1.0.1", "@tailwindcss/vite": "4.2.2",
     "astro": "6.1.6",
     "daisyui": "5.5.19",
     "tailwindcss": "4.2.2"
