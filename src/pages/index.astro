@@ -1,42 +1,605 @@
 ---
+import MinimalHero from "@quick-course-kit/local-release/src/components/layout/heroes/MinimalHero.astro";
+import FlipCards from "@quick-course-kit/local-release/src/components/interactions/display/FlipCards.astro";
+import Carousel from "@quick-course-kit/local-release/src/components/interactions/display/Carousel.astro";
+import TextLayout from "@quick-course-kit/local-release/src/components/typography/TextLayout.astro";
+import TypeText from "@quick-course-kit/local-release/src/components/typography/TypeText.astro";
+import QuickCourseIcon from "@quick-course-kit/local-release/src/components/ui/QuickCourseIcon.astro";
 import { course } from "../config/course";
 import CourseLayout from "../layouts/CourseLayout.astro";
+
+const media = "/media/images";
+
+const heritageCards = [
+  {
+    accessibleLabel: "1919: Champion begins",
+    front: {
+      type: "image-overlay" as const,
+      eyebrow: "1919",
+      title: "Champion begins",
+      body: "Champion was founded as Knickerbocker Knitting Mills in Rochester, New York.",
+      image: `${media}/champion wayback history.png`,
+      imageAlt: "Historic photograph of an early Champion athlete in uniform.",
+      overlayStyle: "dark" as const,
+      focalPosition: "center" as const,
+    },
+    back: {
+      type: "text" as const,
+      eyebrow: "Why it matters to Customers",
+      title: "An established sportswear brand",
+      body: "This helps Customers see Champion as an established sportswear brand with a long history.",
+      surface: "light" as const,
+      verticalAlignment: "center" as const,
+    },
+  },
+  {
+    accessibleLabel: "1926: Champion supports collegiate teams",
+    front: {
+      type: "image-overlay" as const,
+      eyebrow: "1926",
+      title: "Champion supports collegiate teams",
+      body: "Champion began supplying school uniforms to Wentworth Military Academy, which helped build its link to school and college sport.",
+      image: `${media}/champion history jersey.png`,
+      imageAlt: "A historic collegiate knit jersey with a large letter on the front.",
+      overlayStyle: "dark" as const,
+      focalPosition: "center" as const,
+    },
+    back: {
+      type: "text" as const,
+      eyebrow: "Why it matters to Customers",
+      title: "Roots in sport and team culture",
+      body: "This shows Customers that Champion has strong roots in sport and team culture.",
+      surface: "secondary" as const,
+      verticalAlignment: "center" as const,
+    },
+  },
+  {
+    accessibleLabel: "1938: Reverse Weave is introduced",
+    front: {
+      type: "image-overlay" as const,
+      eyebrow: "1938",
+      title: "Reverse Weave is introduced",
+      body: "Champion’s Reverse Weave sweatshirt was created to reduce shrinkage and support movement during sport.",
+      image: `${media}/champion reverse weave first patent.png`,
+      imageAlt: "Historic Reverse Weave patent document showing garment construction drawings.",
+      overlayStyle: "dark" as const,
+      focalPosition: "center" as const,
+    },
+    back: {
+      type: "text" as const,
+      eyebrow: "Why it matters to Customers",
+      title: "Practical sportswear innovation",
+      body: "This helps Customers understand that Champion is known for practical, comfortable sportswear innovation.",
+      surface: "accent" as const,
+      verticalAlignment: "center" as const,
+    },
+  },
+  {
+    accessibleLabel: "Sport and lifestyle recognition",
+    front: {
+      type: "image-overlay" as const,
+      eyebrow: "Sport and lifestyle",
+      title: "Recognition beyond sport",
+      body: "Champion grew from sportswear into a brand recognised across sport, fashion, culture, and everyday style.",
+      image: `${media}/champion pop tlc.png`,
+      imageAlt: "TLC wearing colourful Champion sport-inspired outfits.",
+      overlayStyle: "dark" as const,
+      focalPosition: "center" as const,
+    },
+    back: {
+      type: "text" as const,
+      eyebrow: "Why it matters to Customers",
+      title: "Made for everyday style too",
+      body: "This shows Customers that Champion works beyond sport and can fit daily outfits and relaxed lifestyle looks.",
+      surface: "primary" as const,
+      verticalAlignment: "center" as const,
+    },
+  },
+];
+
+const brandValueCards = [
+  {
+    front: { type: "icon" as const, icon: "calendar" as const, title: "Heritage", body: "Reveal the Customer connection.", surface: "primary" as const },
+    back: { type: "text" as const, eyebrow: "Customer need", title: "Credibility", body: "Champion has a long sportswear history that gives the brand credibility.", surface: "light" as const, verticalAlignment: "center" as const },
+  },
+  {
+    front: { type: "icon" as const, icon: "success" as const, title: "Authenticity", body: "Reveal the Customer connection.", surface: "secondary" as const },
+    back: { type: "text" as const, eyebrow: "Customer need", title: "A real brand story", body: "Champion has a real brand story linked to sport and lifestyle.", surface: "light" as const, verticalAlignment: "center" as const },
+  },
+  {
+    front: { type: "icon" as const, icon: "person" as const, title: "Comfort", body: "Reveal the Customer connection.", surface: "accent" as const },
+    back: { type: "text" as const, eyebrow: "Customer need", title: "Easy, everyday wear", body: "Champion can suit Customers who want easy, everyday wear.", surface: "light" as const, verticalAlignment: "center" as const },
+  },
+  {
+    front: { type: "icon" as const, icon: "team" as const, title: "Sport", body: "Reveal the Customer connection.", surface: "dark" as const },
+    back: { type: "text" as const, eyebrow: "Customer need", title: "A sport-inspired look", body: "Champion has strong sport roots and a sport-inspired look.", surface: "light" as const, verticalAlignment: "center" as const },
+  },
+  {
+    front: { type: "icon" as const, icon: "recommended" as const, title: "Everyday style", body: "Reveal the Customer connection.", surface: "light" as const },
+    back: { type: "text" as const, eyebrow: "Customer need", title: "Relaxed daily outfits", body: "Champion can fit relaxed outfits and daily lifestyle looks.", surface: "secondary" as const, verticalAlignment: "center" as const },
+  },
+];
+
+const conversationSlides = [
+  {
+    eyebrow: "Example 1 · Comfort",
+    title: "“I want something comfortable that I can wear every day.”",
+    body: "You: “Champion is a good option because it is known for comfort and everyday style. It gives you a relaxed look with a strong sportswear story.”",
+  },
+  {
+    eyebrow: "Example 2 · Heritage",
+    title: "“I like brands that have a bit of history.”",
+    body: "You: “Champion has been around since 1919, so it has a real sportswear heritage. It is known as The Original Sportswear Brand™.”",
+  },
+  {
+    eyebrow: "Example 3 · Sport-inspired style",
+    title: "“I want a sport-inspired outfit, but not something too technical.”",
+    body: "You: “Champion works well for that. It has sport roots, but the look is relaxed enough for everyday wear.”",
+  },
+  {
+    eyebrow: "Example 4 · Brand introduction",
+    title: "“I have seen Champion before, but I do not know much about it.”",
+    body: "You: “Champion is The Original Sportswear Brand™. It brings together sport-inspired style, comfort, and a long brand story.”",
+  },
+  {
+    eyebrow: "Example 5 · A recognised casual brand",
+    title: "“I want something casual that still feels like a known brand.”",
+    body: "You: “Champion is a recognised sportswear brand with relaxed lifestyle pieces. It is a good choice if you want everyday comfort with a brand story behind it.”",
+  },
+];
 ---
 
-<CourseLayout>
-  <section class="course-placeholder" aria-labelledby="course-title">
-    <h1 id="course-title">{course.title}</h1>
-    <p>{course.description}</p>
-    <p class="course-placeholder__note">Course content will be generated here after storyboard mapping and human review.</p>
+<CourseLayout title={course.title} description={course.description}>
+  <header class="course-opening">
+    <img class="course-opening__logo" src={`${media}/champion logo.png`} alt="Champion — The Original Sportswear Brand™." width="596" height="131" />
+    <MinimalHero
+      previewId="course-opener"
+      headingId="course-title"
+      eyebrow="Welcome to Champion"
+      title={course.title}
+      summary="Champion is an iconic sportswear brand with a strong history, a bold style, and everyday comfort that Customers can enjoy in store."
+      alignment="left"
+      headingScale="standard"
+      density="spacious"
+      surface="light"
+      headingLevel={1}
+      actions={[{ href: "#course-introduction", label: "Start the course" }]}
+    />
+  </header>
+
+  <nav class="course-nav" aria-label="Course sections">
+    <a href="#meet-champion">Meet Champion</a>
+    <a href="#heritage">Heritage</a>
+    <a href="#brand-dna">Brand DNA</a>
+    <a href="#customer-conversations">Customer conversations</a>
+  </nav>
+
+  <section id="course-introduction" class="course-section">
+    <TextLayout layout="reading-standard" spacing="spacious" as="div">
+      <div class="brand-lockup">
+        <img src={`${media}/champion logo.png`} alt="Champion — The Original Sportswear Brand™." width="596" height="131" />
+      </div>
+      <TypeText as="h2" role="heading-lg" class="introduction-heading">A simple first look at Champion</TypeText>
+      <div class="prose-stack">
+        <TypeText role="lead">You will learn what the brand stands for, why it is exciting for TFG, and how to use short, helpful messages when Customers ask about Champion.</TypeText>
+        <TypeText>The Champion learning series will cover the brand first, then move into product and range learning for each retail brand. This helps you build your Champion knowledge step by step.</TypeText>
+      </div>
+    </TextLayout>
+
+    <TextLayout layout="two-equal" surface="muted" spacing="standard" as="div" class="journey-layout">
+      <article class="journey-step">
+        <span class="journey-step__number" aria-hidden="true">01</span>
+        <div>
+          <TypeText as="p" role="eyebrow">Step 1</TypeText>
+          <TypeText as="h3" role="heading-md">Meet Champion</TypeText>
+          <TypeText>Build a simple foundation in the brand, its heritage, values, and Customer relevance.</TypeText>
+        </div>
+      </article>
+      <article class="journey-step">
+        <span class="journey-step__number" aria-hidden="true">02</span>
+        <div>
+          <TypeText as="p" role="eyebrow">Step 2</TypeText>
+          <TypeText as="h3" role="heading-md">Learn the products in your store</TypeText>
+          <TypeText>Continue into product and range learning for your retail brand.</TypeText>
+        </div>
+      </article>
+    </TextLayout>
+  </section>
+
+  <section id="meet-champion" class="course-section">
+    <TextLayout layout="split" spacing="spacious" as="div">
+      <div class="section-copy">
+        <TypeText as="p" role="eyebrow">The brand at a glance</TypeText>
+        <TypeText as="h2" role="heading-xl">Meet Champion</TypeText>
+        <TypeText role="statement" tone="primary">The Original Sportswear Brand™.</TypeText>
+        <TypeText role="lead">The brand started in 1919 and has grown into a well-known sports and lifestyle brand.</TypeText>
+      </div>
+      <figure class="product-figure product-figure--poster">
+        <img src={`${media}/champion its in the name poster.png`} alt="Champion heritage poster reading ‘It’s in the name’ beside runners wearing hoodies." width="583" height="374" loading="lazy" />
+      </figure>
+    </TextLayout>
+
+    <TextLayout layout="two-equal" spacing="standard" as="div" class="feature-grid">
+      <article class="feature-card">
+        <QuickCourseIcon name="team" context="feature" decorative />
+        <TypeText as="h3" role="heading-sm">Sport-inspired style</TypeText>
+      </article>
+      <article class="feature-card">
+        <QuickCourseIcon name="person" context="feature" decorative />
+        <TypeText as="h3" role="heading-sm">Comfortable everyday wear</TypeText>
+      </article>
+      <article class="feature-card">
+        <QuickCourseIcon name="calendar" context="feature" decorative />
+        <TypeText as="h3" role="heading-sm">A real brand story and heritage</TypeText>
+      </article>
+      <article class="feature-card">
+        <QuickCourseIcon name="recommended" context="feature" decorative />
+        <TypeText as="h3" role="heading-sm">Relaxed lifestyle pieces</TypeText>
+      </article>
+    </TextLayout>
+  </section>
+
+  <section id="why-champion" class="course-section course-section--field">
+    <TextLayout layout="two-main" surface="dark" spacing="spacious" bleed="viewport" as="div" class="why-layout">
+      <div class="section-copy">
+        <TypeText as="p" role="eyebrow">Customer relevance</TypeText>
+        <TypeText as="h2" role="heading-xl">Why Champion at TFG</TypeText>
+        <TypeText role="lead">Champion gives TFG stores a strong sportswear name that Customers may already know and recognise.</TypeText>
+        <TypeText>It brings together sport, comfort, heritage, and lifestyle style in a way that can support different Customer needs.</TypeText>
+      </div>
+      <figure class="product-figure product-figure--cutout">
+        <img src={`${media}/champion man black tshirt.png`} alt="Model wearing a black Champion T-shirt." width="309" height="438" loading="lazy" />
+      </figure>
+    </TextLayout>
+  </section>
+
+  <section id="heritage" class="course-section">
+    <TextLayout layout="reading-standard" spacing="standard" as="div">
+      <TypeText as="p" role="eyebrow">A story worth sharing</TypeText>
+      <TypeText as="h2" role="heading-xl">Champion Heritage</TypeText>
+      <TypeText role="lead">Champion’s heritage can help you explain why the brand has credibility. Keep this simple by focusing on a short heritage timeline that you can remember and use in Customer conversations.</TypeText>
+      <TypeText tone="muted">Select each card to reveal why that heritage point matters to Customers.</TypeText>
+    </TextLayout>
+
+    <FlipCards
+      id="champion-heritage-cards"
+      cards={heritageCards}
+      revealMode="flip"
+      heightMode="equal"
+      format="square"
+    />
+
+    <div class="download-row">
+      <a class="download-link" href="/media/documents/champion pdf for download - brandbook.pdf" download>
+        <QuickCourseIcon name="download" context="button" decorative />
+        <span>Download the Champion brand book to learn more <small>(PDF, 19 MB)</small></span>
+      </a>
+    </div>
+  </section>
+
+  <section id="brand-dna" class="course-section course-section--subtle">
+    <TextLayout layout="reading-standard" spacing="standard" as="div">
+      <TypeText as="p" role="eyebrow">From values to needs</TypeText>
+      <TypeText as="h2" role="heading-xl">Champion Brand DNA and Customer Needs</TypeText>
+      <TypeText role="lead">Let’s look at the Champion values that are easiest to use when speaking to Customers.</TypeText>
+      <TypeText>You do not need to explain every brand value. Focus on the values that are simple, useful, and easy to connect to a Customer’s need.</TypeText>
+      <TypeText tone="muted">Choose a value to reveal the Customer connection.</TypeText>
+    </TextLayout>
+
+    <FlipCards
+      id="champion-value-cards"
+      cards={brandValueCards}
+      revealMode="slide"
+      heightMode="equal"
+      format="landscape"
+    />
+  </section>
+
+  <section id="customer-conversations" class="course-section">
+    <TextLayout layout="reading-standard" spacing="standard" as="div">
+      <TypeText as="p" role="eyebrow">Put it into practice</TypeText>
+      <TypeText as="h2" role="heading-xl">Using Champion Knowledge Every Day</TypeText>
+      <TypeText role="lead">You can use Champion knowledge during normal daily activities.</TypeText>
+      <TypeText>The aim is not to give a long brand history. The aim is to share a short, helpful message that connects Champion to what the Customer needs.</TypeText>
+    </TextLayout>
+
+    <TypeText as="h3" role="heading-md">Practical Customer conversation examples</TypeText>
+    <Carousel
+      id="customer-conversation-examples"
+      label="Practical Customer conversation examples"
+      heading="Five ways to respond"
+      intro="Move through five ways to connect a Customer need to a short Champion message."
+      variant="content"
+      slides={conversationSlides}
+      indicator="count"
+      surfaceTreatment="single-surface"
+    />
+  </section>
+
+  <section id="course-summary" class="course-section course-section--closing">
+    <TextLayout layout="two-main" surface="dark" spacing="spacious" bleed="viewport" as="div" class="closing-layout">
+      <div class="section-copy">
+        <TypeText as="p" role="eyebrow">Course complete</TypeText>
+        <TypeText as="h2" role="heading-xl">Well done</TypeText>
+        <TypeText role="lead">You have completed Champion at TFG: The Brand Worth Talking About.</TypeText>
+        <TypeText>You can now:</TypeText>
+        <ul class="summary-list">
+          <li>identify Champion as The Original Sportswear Brand™</li>
+          <li>recall key heritage points</li>
+          <li>recognise simple Champion values</li>
+          <li>match Customer needs to Champion messages</li>
+          <li>choose a useful talking point during a Customer conversation</li>
+        </ul>
+        <TypeText role="statement">More than a logo.</TypeText>
+        <TypeText>Champion is a sportswear brand with heritage, comfort, style, and cultural relevance that store employees can bring to life with Customers every day.</TypeText>
+      </div>
+      <figure class="closing-figure">
+        <img class="closing-figure__logo" src={`${media}/champion logo.png`} alt="Champion — The Original Sportswear Brand™." width="596" height="131" loading="lazy" />
+        <img class="closing-figure__model" src={`${media}/champion woman tracksuit.png`} alt="Model wearing a grey Champion hoodie and tracksuit bottoms." width="400" height="436" loading="lazy" />
+      </figure>
+    </TextLayout>
   </section>
 </CourseLayout>
 
 <style>
-  .course-placeholder {
-    border-block: 1px solid #d8d4da;
-    max-inline-size: 46rem;
-    min-inline-size: 0;
-    padding-block: clamp(2.5rem, 8vw, 5rem);
+  :global(html) {
+    scroll-behavior: smooth;
   }
 
-  h1 {
-    color: #1f1a22;
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    line-height: 1.1;
+  .course-opening {
+    position: relative;
+    isolation: isolate;
+    background: #fdf3e0;
+  }
+
+  .course-opening::before {
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    left: 50%;
+    inline-size: 100vw;
+    transform: translateX(-50%);
+    background: #fdf3e0;
+    content: "";
+  }
+
+  .course-opening__logo {
+    position: absolute;
+    z-index: 1;
+    inset-block-start: clamp(1.25rem, 3vw, 2.25rem);
+    inset-inline-end: 1.5rem;
+    inline-size: clamp(9rem, 18vw, 16rem);
+    block-size: auto;
+  }
+
+  .course-opening :global(.showcase-minimal-hero) {
+    inline-size: 100%;
+  }
+
+  .course-opening :global(.showcase-minimal-hero__content) {
+    padding-block-start: clamp(7rem, 12vw, 9rem);
+  }
+
+  .course-nav {
+    display: flex;
+    inline-size: min(100%, 72rem);
+    gap: 0.4rem 1.25rem;
+    margin-inline: auto;
+    overflow-x: auto;
+    padding-block: 1rem;
+    white-space: nowrap;
+  }
+
+  .course-nav a {
+    color: #1e293b;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.2em;
+  }
+
+  .course-section {
+    display: grid;
+    gap: clamp(2rem, 4vw, 3rem);
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+
+  .course-section--subtle {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .course-section--subtle::before {
+    position: absolute;
+    z-index: -1;
+    inset-block: 0;
+    left: 50%;
+    inline-size: 100vw;
+    transform: translateX(-50%);
+    background: #f1f1f1;
+    content: "";
+  }
+
+  .course-section--closing {
+    padding-block: 0;
+  }
+
+  .course-section--field {
+    padding-block: 0;
+  }
+
+  .brand-lockup {
+    max-inline-size: 26rem;
+  }
+
+  .brand-lockup img,
+  .product-figure img,
+  .closing-figure img {
+    display: block;
+    max-inline-size: 100%;
+    block-size: auto;
+  }
+
+  .prose-stack,
+  .section-copy {
+    display: grid;
+    align-content: start;
+    gap: 1.25rem;
+  }
+
+  .journey-layout {
+    max-inline-size: none;
+  }
+
+  .journey-step {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 1rem;
+  }
+
+  .journey-step > div {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .journey-step__number {
+    color: #6c2c84;
+    font-size: clamp(2.25rem, 6vw, 4.25rem);
+    font-weight: 800;
+    line-height: 0.9;
+  }
+
+  .product-figure,
+  .closing-figure {
     margin: 0;
   }
 
-  p {
-    color: #4f4854;
-    font-size: 1.125rem;
-    line-height: 1.6;
-    margin: 1rem 0 0;
-    max-inline-size: 42rem;
-    overflow-wrap: anywhere;
+  .product-figure--poster {
+    align-self: center;
+    overflow: hidden;
+    border-radius: 0.5rem;
   }
 
-  .course-placeholder__note {
-    color: #716a75;
-    font-size: 1rem;
+  .product-figure--poster img {
+    inline-size: 100%;
+  }
+
+  .feature-grid {
+    max-inline-size: none;
+  }
+
+  .feature-card {
+    display: grid;
+    align-content: start;
+    min-block-size: 10rem;
+    gap: 1rem;
+    border-block-start: 3px solid #6c2c84;
+    padding-block-start: 1.25rem;
+  }
+
+  .feature-card :global(.qc-icon) {
+    color: #6c2c84;
+  }
+
+  .why-layout,
+  .closing-layout {
+    max-inline-size: none;
+  }
+
+  .product-figure--cutout {
+    align-self: end;
+    justify-self: center;
+    max-inline-size: 18rem;
+  }
+
+  .download-row {
+    display: flex;
+  }
+
+  .download-link {
+    display: inline-flex;
+    min-block-size: 2.75rem;
+    align-items: center;
+    gap: 0.65rem;
+    border: 1px solid #111827;
+    border-radius: 0.45rem;
+    background: #111827;
+    color: #fff;
+    font-weight: 700;
+    padding: 0.75rem 1rem;
+    text-decoration: none;
+  }
+
+  .download-link:hover {
+    background: #374151;
+  }
+
+  .download-link small {
+    font-weight: 400;
+  }
+
+  .summary-list {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding-inline-start: 1.35rem;
+    color: #fff;
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  .closing-figure {
+    display: grid;
+    align-self: stretch;
+    align-items: end;
+    justify-items: center;
+    gap: 1.5rem;
+  }
+
+  .closing-figure__logo {
+    inline-size: min(100%, 24rem);
+    border-radius: 0.35rem;
+    background: #fff;
+  }
+
+  .closing-figure__model {
+    max-block-size: 30rem;
+    object-fit: contain;
+  }
+
+  @media (max-width: 639px) {
+    .course-opening__logo {
+      inset-inline-start: 1.5rem;
+      inset-inline-end: auto;
+    }
+
+    .course-nav {
+      margin-inline: -1rem;
+      inline-size: calc(100% + 2rem);
+      padding-inline: 1rem;
+    }
+
+    .journey-step {
+      grid-template-columns: 3.25rem minmax(0, 1fr);
+    }
+
+    .download-link {
+      inline-size: 100%;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+  @media print {
+    .course-nav {
+      display: none;
+    }
+
+    .course-section,
+    .course-section--closing {
+      padding-block: 2rem;
+    }
   }
 </style>

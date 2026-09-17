@@ -1,5 +1,5 @@
 ---
-import "@quick-course-kit/local-release/styles/quick-course.css";
+import "@quick-course-kit/local-release/src/styles/quick-course.css";
 import { course } from "../config/course";
 import { kitManifest } from "../config/kit";
 
@@ -54,11 +54,21 @@ const {
     inline-size: 100%;
     max-inline-size: 72rem;
     margin-inline: auto;
-    padding-block: clamp(2rem, 6vw, 4rem);
+    padding-block: 0;
     padding-inline: 1rem;
   }
 
   .course-shell:focus {
     outline: none;
+  }
+
+  :global(.sr-only) {
+    position: absolute !important;
+    inline-size: 1px !important;
+    block-size: 1px !important;
+    overflow: hidden !important;
+    clip: rect(0 0 0 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
   }
 </style>
