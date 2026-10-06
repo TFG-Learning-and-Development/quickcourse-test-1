@@ -1,9 +1,9 @@
 export const course = {
-  id: "quick-course-starter",
-  title: "Quick Course",
-  description: "A course project ready for storyboard mapping and implementation.",
+  id: "champion-at-tfg-test-1",
+  title: "Champion at TFG: The Brand Worth Talking About",
+  description: "Welcome to Champion at TFG: The Brand Worth Talking About. Champion is an iconic sportswear brand with a strong history, a bold style, and everyday comfort that Customers can enjoy in store.",
   language: "en",
-  version: "0.1.0",
+  version: "2.0.0",
 } as const;
 
 export type CourseConfig = typeof course;

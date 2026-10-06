@@ -1,4 +1,7 @@
-import manifest from "@quick-course-kit/local-release/manifest.json";
+import kitPackage from "@quick-course-kit/local-release/package.json";
 
-// The package manifest is the authoritative catalogue for this pinned Kit release.
-export const kitManifest = manifest;
+// The installed source release does not include its generated manifest file.
+// Its package version is retained for the document metadata.
+export const kitManifest = {
+  kitVersion: kitPackage.version,
+} as const;

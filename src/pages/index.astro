@@ -1,42 +1,135 @@
 ---
 import { course } from "../config/course";
 import CourseLayout from "../layouts/CourseLayout.astro";
+import MinimalHero from "@quick-course-kit/local-release/src/components/layout/heroes/MinimalHero.astro";
+import TextImageSplit from "@quick-course-kit/local-release/src/components/layouts/content/TextImageSplit.astro";
+import ReadableTextSection from "@quick-course-kit/local-release/src/components/layouts/content/ReadableTextSection.astro";
+import FlipCards from "@quick-course-kit/local-release/src/components/interactions/display/FlipCards.astro";
+import MatchingInteraction from "@quick-course-kit/local-release/src/components/interactions/MatchingInteraction.astro";
+import TypeText from "@quick-course-kit/local-release/src/components/typography/TypeText.astro";
+import TextLayout from "@quick-course-kit/local-release/src/components/typography/TextLayout.astro";
+
+const videoSource = "https://tfgonline.sharepoint.com/:w:/r/sites/DigitalContentCentreDCC/_layouts/15/Doc.aspx?sourcedoc=%7B5809e3fb-37a2-4219-8c49-6b1b0d5fc659%7D&action=edit&wdPreviousSession=1e02dd9f-95c1-4636-c58c-c4fe7608f9bc";
+const heritageCards = [
+  {
+    front: { type: "text" as const, title: "1919: Champion begins", body: "Champion was founded as Knickerbocker Knitting Mills in Rochester, New York." },
+    back: { type: "text" as const, title: "Why it matters to Customers:", body: "This helps Customers see Champion as an established sportswear brand with a long history." },
+  },
+  {
+    front: { type: "text" as const, title: "1926: Champion supports collegiate teams", body: "Champion began supplying school uniforms to Wentworth Military Academy, which helped build its link to school and college sport." },
+    back: { type: "text" as const, title: "Why it matters to Customers:", body: "This shows Customers that Champion has strong roots in sport and team culture." },
+  },
+  {
+    front: { type: "text" as const, title: "1938: Reverse Weave is introduced", body: "Champion’s Reverse Weave sweatshirt was created to reduce shrinkage and support movement during sport." },
+    back: { type: "text" as const, title: "Why it matters to Customers:", body: "This helps Customers understand that Champion is known for practical, comfortable sportswear innovation." },
+  },
+  {
+    front: { type: "text" as const, title: "Sport and lifestyle recognition", body: "Champion grew from sportswear into a brand recognised across sport, fashion, culture, and everyday style." },
+    back: { type: "text" as const, title: "Why it matters to Customers:", body: "This shows Customers that Champion works beyond sport and can fit daily outfits and relaxed lifestyle looks." },
+  },
+];
 ---
 
-<CourseLayout>
-  <section class="course-placeholder" aria-labelledby="course-title">
-    <h1 id="course-title">{course.title}</h1>
-    <p>{course.description}</p>
-    <p class="course-placeholder__note">Course content will be generated here after storyboard mapping and human review.</p>
-  </section>
+<CourseLayout title={course.title} description={course.description}>
+  <div class="course-stack">
+    <section class="course-opening" aria-labelledby="course-title">
+      <img class="course-opening__logo" src="/media/images/champion logo.png" alt="Champion" />
+      <MinimalHero headingId="course-title" title="Champion at TFG: The Brand Worth Talking About" headingLevel={1} alignment="left" density="spacious" surface="light" />
+      <TextLayout as="div" layout="reading-standard" spacing="compact">
+        <TypeText as="p">Welcome to Champion at TFG: The Brand Worth Talking About. Champion is an iconic sportswear brand with a strong history, a bold style, and everyday comfort that Customers can enjoy in store.</TypeText>
+        <TypeText as="p">This course gives you a simple first look at Champion. You will learn what the brand stands for, why it is exciting for TFG, and how to use short, helpful messages when Customers ask about Champion.</TypeText>
+        <TypeText as="p">The Champion learning series will cover the brand first, then move into product and range learning for each retail brand. This helps you build your Champion knowledge step by step.</TypeText>
+        <ol class="learning-journey">
+          <li>Step 1: Meet Champion</li>
+          <li>Step 2: Learn the products in your store.</li>
+        </ol>
+      </TextLayout>
+    </section>
+
+    <TextImageSplit heading="Meet Champion" headingLevel={2} description="Champion is The Original Sportswear Brand™. The brand started in 1919 and has grown into a well-known sports and lifestyle brand." imageSrc="/media/images/champion woman tracksuit.png" imageAlt="Champion sportswear" imagePosition="right" balance="60-40">
+      <p>Champion is known for:</p>
+      <ul>
+        <li>sport-inspired style</li>
+        <li>comfortable everyday wear</li>
+        <li>a real brand story and heritage</li>
+        <li>relaxed lifestyle pieces</li>
+      </ul>
+    </TextImageSplit>
+
+    <ReadableTextSection heading="Why Champion at TFG" headingLevel={2}>
+      <p>Champion gives TFG stores a strong sportswear name that Customers may already know and recognise. It brings together sport, comfort, heritage, and lifestyle style in a way that can support different Customer needs.</p>
+      <p><a href={videoSource}>Watch the video</a></p>
+    </ReadableTextSection>
+
+    <section class="heritage-section" aria-labelledby="champion-heritage-heading">
+      <ReadableTextSection heading="Champion Heritage" headingLevel={2}>
+        <p>Champion’s heritage can help you explain why the brand has credibility. Keep this simple by focusing on a short heritage timeline that you can remember and use in Customer conversations.</p>
+        <p>Short heritage timeline:</p>
+      </ReadableTextSection>
+      <FlipCards id="champion-heritage" cards={heritageCards} revealMode="flip" heightMode="content" format="portrait" />
+      <p class="course-resource"><a href="/media/documents/champion%20pdf%20for%20download%20-%20brandbook.pdf" download>Download the PDF to learn more.</a></p>
+    </section>
+
+    <section class="brand-dna-section" aria-labelledby="champion-brand-dna-and-customer-needs-heading">
+      <ReadableTextSection heading="Champion Brand DNA and Customer Needs" headingLevel={2}>
+        <p>Let’s look at the Champion values that are easiest to use when speaking to Customers. You do not need to explain every brand value. Focus on the values that are simple, useful, and easy to connect to a Customer’s need.</p>
+      </ReadableTextSection>
+      <MatchingInteraction
+        id="champion-value-match"
+        title="Champion Brand DNA and Customer Needs"
+        prompt="Focus on the values that are simple, useful, and easy to connect to a Customer’s need."
+        targetLabel="value"
+        matchingMode="one-to-one"
+        sources={[
+          { id: "heritage", label: "Heritage", correctTargetId: "heritage-description" },
+          { id: "authenticity", label: "Authenticity", correctTargetId: "authenticity-description" },
+          { id: "comfort", label: "Comfort", correctTargetId: "comfort-description" },
+          { id: "sport", label: "Sport", correctTargetId: "sport-description" },
+          { id: "everyday-style", label: "Everyday style", correctTargetId: "everyday-style-description" },
+        ]}
+        targets={[
+          { id: "heritage-description", label: "Champion has a long sportswear history that gives the brand credibility." },
+          { id: "authenticity-description", label: "Champion has a real brand story linked to sport and lifestyle." },
+          { id: "comfort-description", label: "Champion can suit Customers who want easy, everyday wear." },
+          { id: "sport-description", label: "Champion has strong sport roots and a sport-inspired look." },
+          { id: "everyday-style-description", label: "Champion can fit relaxed outfits and daily lifestyle looks." },
+        ]}
+      />
+    </section>
+
+    <ReadableTextSection heading="Using Champion Knowledge Every Day" headingLevel={2} width="wide">
+      <p>You can use Champion knowledge during normal daily activities. The aim is not to give a long brand history. The aim is to share a short, helpful message that connects Champion to what the Customer needs.</p>
+      <p>Practical Customer conversation examples:</p>
+      <ol class="conversation-examples">
+        <li><p class="conversation-example-label">Example 1</p><p>Customer: “I want something comfortable that I can wear every day.”</p><p>You: “Champion is a good option because it is known for comfort and everyday style. It gives you a relaxed look with a strong sportswear story.”</p></li>
+        <li><p class="conversation-example-label">Example 2</p><p>Customer: “I like brands that have a bit of history.”</p><p>You: “Champion has been around since 1919, so it has a real sportswear heritage. It is known as The Original Sportswear Brand™.”</p></li>
+        <li><p class="conversation-example-label">Example 3</p><p>Customer: “I want a sport-inspired outfit, but not something too technical.”</p><p>You: “Champion works well for that. It has sport roots, but the look is relaxed enough for everyday wear.”</p></li>
+        <li><p class="conversation-example-label">Example 4</p><p>Customer: “I have seen Champion before, but I do not know much about it.”</p><p>You: “Champion is The Original Sportswear Brand™. It brings together sport-inspired style, comfort, and a long brand story.”</p></li>
+        <li><p class="conversation-example-label">Example 5</p><p>Customer: “I want something casual that still feels like a known brand.”</p><p>You: “Champion is a recognised sportswear brand with relaxed lifestyle pieces. It is a good choice if you want everyday comfort with a brand story behind it.”</p></li>
+      </ol>
+    </ReadableTextSection>
+
+    <TextImageSplit heading="Closing" headingLevel={2} description="Well done. You have completed Champion at TFG: The Brand Worth Talking About." imageSrc="/media/images/champion its in the name poster.png" imageAlt="Champion poster" imagePosition="left" balance="40-60">
+      <p>You can now identify Champion as The Original Sportswear Brand™, recall key heritage points, recognise simple Champion values, match Customer needs to Champion messages, and choose a useful talking point during a Customer conversation.</p>
+      <p>Champion is more than a logo. It is a sportswear brand with heritage, comfort, style, and cultural relevance that store employees can bring to life with Customers every day.</p>
+    </TextImageSplit>
+  </div>
 </CourseLayout>
 
 <style>
-  .course-placeholder {
-    border-block: 1px solid #d8d4da;
-    max-inline-size: 46rem;
-    min-inline-size: 0;
-    padding-block: clamp(2.5rem, 8vw, 5rem);
-  }
-
-  h1 {
-    color: #1f1a22;
-    font-size: clamp(2rem, 4vw, 3.25rem);
-    line-height: 1.1;
-    margin: 0;
-  }
-
-  p {
-    color: #4f4854;
-    font-size: 1.125rem;
-    line-height: 1.6;
-    margin: 1rem 0 0;
-    max-inline-size: 42rem;
-    overflow-wrap: anywhere;
-  }
-
-  .course-placeholder__note {
-    color: #716a75;
-    font-size: 1rem;
-  }
+  .course-stack { display: grid; gap: clamp(4rem, 9vw, 7rem); }
+  .course-opening { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+  .course-opening__logo { block-size: auto; inline-size: min(17rem, 70%); }
+  .learning-journey, .conversation-examples { display: grid; gap: 1rem; margin: 1.5rem 0 0; padding-inline-start: 1.5rem; }
+  .learning-journey li::marker, .conversation-examples li::marker { color: var(--qc-color-primary, #6c2c84); font-weight: 700; }
+  .heritage-section, .brand-dna-section { display: grid; gap: clamp(1.5rem, 4vw, 2.5rem); }
+  .course-resource { margin: 0; }
+  .conversation-examples { list-style-position: outside; }
+  .conversation-examples li { padding-inline-start: 0.5rem; }
+  .conversation-examples p { margin: 0; }
+  .conversation-example-label { font-weight: 700; }
+  .conversation-examples p + p { margin-block-start: 0.65rem; }
+  :global(.qc-media-frame) { max-inline-size: 24rem; }
+  :global(.qc-split .qc-media-frame) { justify-self: end; }
+  :global(.qc-split .qc-media-frame.lg\\:order-1) { justify-self: start; }
 </style>
